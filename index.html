@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -75,7 +76,7 @@
             font-weight: bold;
             font-family: Arial, sans-serif;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .click-instruction {
@@ -87,14 +88,17 @@
             font-size: 18px;
             font-weight: bold;
             font-family: Arial, sans-serif;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 opacity: 1;
             }
+
             50% {
                 opacity: 0.5;
             }
@@ -125,26 +129,24 @@
             transform: scale(0.95);
         }
 
-         .redirect-buttons {
+        .redirect-buttons {
             position: absolute;
-            bottom: 275px;
-            left: 50%;
+            bottom: 30%;
+            left: 48%;
             transform: translateX(-50%);
             display: flex;
-            gap: 30px;
+            flex-direction: column;
+            gap: 35px;
             z-index: 10;
+            width: 90%;
+            max-width: 400px;
         }
 
-        @media (max-width: 768px) {
+        @media (min-height: 600px) {
             .redirect-buttons {
-                bottom: 50%;
-                transform: translate(-50%, 50%);
-            }
-            
-            .curved-text {
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                flex-direction: row;
+                justify-content: center;
+                gap: 20px;
             }
         }
 
@@ -171,17 +173,13 @@
         }
     </style>
 </head>
+
 <body>
-    <video 
-        id="videoPlayer"
-        src="Video.mp4" 
-        playsinline
-        preload="metadata"
-    ></video>
+    <video id="videoPlayer" src="Video.mp4" playsinline preload="metadata"></video>
 
     <div class="curved-text">
         <svg viewBox="0 0 300 150">
-            <path id="curve" d="M 30,100 Q 150,20 270,100" fill="transparent"/>
+            <path id="curve" d="M 30,100 Q 150,20 270,100" fill="transparent" />
             <text>
                 <textPath href="#curve" startOffset="50%" text-anchor="middle">
                     CLIQUE PARA ABRIR
@@ -212,7 +210,7 @@
         const backButton = document.getElementById('backButton');
         const nextButton = document.getElementById('nextButton');
 
-        video.addEventListener('click', function() {
+        video.addEventListener('click', function () {
             if (video.paused) {
                 video.play();
                 curvedText.classList.add('hidden');
@@ -222,26 +220,26 @@
         });
 
         // Quando o vídeo terminar, mostra a primeira imagem
-        video.addEventListener('ended', function() {
+        video.addEventListener('ended', function () {
             video.style.display = 'none';
             image1.classList.add('active');
         });
 
         // Botão próximo (terceiro botão) leva para a segunda imagem
-        nextButton.addEventListener('click', function() {
+        nextButton.addEventListener('click', function () {
             image1.classList.remove('active');
             image2.classList.add('active');
         });
 
         // Botão voltar
-        backButton.addEventListener('click', function() {
+        backButton.addEventListener('click', function () {
             image2.classList.remove('active');
             image1.classList.add('active');
         });
 
         // Previne zoom no duplo toque
         let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(e) {
+        document.addEventListener('touchend', function (e) {
             const now = Date.now();
             if (now - lastTouchEnd <= 300) {
                 e.preventDefault();
@@ -250,4 +248,5 @@
         }, false);
     </script>
 </body>
+
 </html>
